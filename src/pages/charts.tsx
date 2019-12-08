@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
-import { Badge, Flex, Image, Stack, Text } from "@chakra-ui/core";
+import { Badge, Flex, Image, Stack, Tag, Text } from "@chakra-ui/core";
 
 import { GET_CHARTS } from "../graphql/queries";
 
@@ -49,11 +49,11 @@ const IndexPage: NextPage = () => {
               pt={3}
               pb={3}
             >
-              <Badge variant="outline" pl={4} pr={4} rounded="md">
+              <Tag variant="outline" pl={4} pr={4} rounded="md">
                 <Text fontWeight="semibold" color="black">
                   {chart.title}
                 </Text>
-              </Badge>
+              </Tag>
               <Stack
                 flexWrap="wrap"
                 isInline
