@@ -1,4 +1,5 @@
 import assert, { AssertionError } from "assert";
+import encodeurl from "encodeurl";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import mime from "mime";
 import requireEnv from "require-env-variable";
@@ -62,7 +63,7 @@ export class ChartResolver {
       default:
         throw new Error("The File should be PNG!");
     }
-    const imageUrl = `${ChartsPrefix}/${validator.escape(filename)}`;
+    const imageUrl = `${ChartsPrefix}/${encodeurl(filename)}`;
     try {
       const uploadedChart = ChartModel.findOneAndUpdate(
         {

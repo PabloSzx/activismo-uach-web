@@ -1,5 +1,6 @@
 import { transformAndValidate } from "class-transformer-validator";
 import { ValidationError } from "class-validator";
+import encodeurl from "encodeurl";
 import { Router } from "express";
 import requireEnv from "require-env-variable";
 import validator from "validator";
@@ -17,7 +18,7 @@ ChartsRouter.get(`/:filename`, async (req, res) => {
     return res.sendStatus(404);
   }
 
-  const imageUrl = `${ChartsPrefix}/${filename}`;
+  const imageUrl = `${ChartsPrefix}/${encodeurl(filename)}`;
 
   const [img, imgData] = await Promise.all([
     ChartModel.findOne({ imageUrl }),
@@ -49,7 +50,7 @@ ChartsRouter.post("/upload", async (req, res) => {
         throw new Error("Not valid Base64 image!");
       }
       try {
-        const imageUrl = `${ChartsPrefix}/${validator.escape(chart.title)}.png`;
+        const imageUrl = `${ChartsPrefix}/${encodeurl(chart.title)}.png`;
         const uploadedChart = ChartModel.findOneAndUpdate(
           {
             title: chart.title,
