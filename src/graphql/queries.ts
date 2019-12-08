@@ -25,6 +25,7 @@ export const UPLOAD_CHART: DocumentNode<
   {
     file: File;
     data: { title: string; tags?: string[] };
+    oldTitle?: string;
   }
 > = gql`
   mutation($file: Upload!, $data: ChartUpload!, $oldTitle: String) {

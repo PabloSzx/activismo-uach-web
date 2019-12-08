@@ -156,6 +156,7 @@ export default () => {
                   title,
                   tags,
                 },
+                oldTitle: oldTitle || undefined,
               },
             });
           }
