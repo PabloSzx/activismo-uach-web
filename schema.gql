@@ -11,11 +11,24 @@ type Chart {
   createdAt: DateTime!
 }
 
+input ChartUpload {
+  title: String!
+  tags: [String!] = []
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
 
+type Mutation {
+  uploadChart(oldTitle: String, data: ChartUpload!, file: Upload!): Chart!
+}
+
 type Query {
   charts: [Chart!]!
+  tags: [String!]!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

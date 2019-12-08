@@ -1,15 +1,17 @@
 import { transformAndValidate } from "class-transformer-validator";
+import { ValidationError } from "class-validator";
 import { Router } from "express";
+import requireEnv from "require-env-variable";
 import validator from "validator";
 
-import { readFileGridFS, uploadFileGridFS } from "../db/gridFS";
+import { readFileGridFS, uploadFileGridFSBuffer } from "../db/gridFS";
 import { ChartModel, ChartUpload } from "../entities/chart";
 
 export const ChartsRouter = Router();
 
-const ChartsPrefix = "/charts";
+export const ChartsPrefix = "/charts";
 
-ChartsRouter.get(`${ChartsPrefix}/:filename`, async (req, res) => {
+ChartsRouter.get(`/:filename`, async (req, res) => {
   const { filename } = req.params;
   if (typeof filename !== "string" || filename?.length === 0) {
     return res.sendStatus(404);
@@ -30,8 +32,13 @@ ChartsRouter.get(`${ChartsPrefix}/:filename`, async (req, res) => {
   }
 });
 
+const { UPLOAD_CHART_CREDENTIALS } = requireEnv("UPLOAD_CHART_CREDENTIALS");
+
 ChartsRouter.post("/upload", async (req, res) => {
   try {
+    if ((req.headers.authorization ?? "unknown") !== UPLOAD_CHART_CREDENTIALS) {
+      return res.sendStatus(403);
+    }
     const chartUploads = await transformAndValidate(ChartUpload, req.body);
 
     for (const chart of Array.isArray(chartUploads)
@@ -41,31 +48,50 @@ ChartsRouter.post("/upload", async (req, res) => {
       if (!validator.isBase64(base64Image ?? "")) {
         throw new Error("Not valid Base64 image!");
       }
-      const imageUrl = `${ChartsPrefix}/${validator.escape(chart.title)}.png`;
-      const uploadedChart = ChartModel.findOneAndUpdate(
-        {
-          title: chart.title,
-        },
-        {
-          title: chart.title,
-          tags: chart.tags ?? [],
+      try {
+        const imageUrl = `${ChartsPrefix}/${validator.escape(chart.title)}.png`;
+        const uploadedChart = ChartModel.findOneAndUpdate(
+          {
+            title: chart.title,
+          },
+          {
+            title: chart.title,
+            tags: chart.tags ?? [],
+            imageUrl,
+          },
+          {
+            upsert: true,
+            new: true,
+          }
+        );
+        const imgBuffer = Buffer.from(base64Image, "base64");
+        const uploadedFile = await uploadFileGridFSBuffer(
+          imgBuffer,
           imageUrl,
-        },
-        {
-          upsert: true,
-          new: true,
-        }
-      );
-      const imgBuffer = Buffer.from(base64Image, "base64");
-      const uploadedFile = await uploadFileGridFS(
-        imgBuffer,
-        imageUrl,
-        (await uploadedChart)._id
-      );
+          (await uploadedChart)._id
+        );
 
-      return res.status(200).send({ ...uploadedFile, imageUrl });
+        return res.status(200).send({ ...uploadedFile, imageUrl });
+      } catch (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .send(err?.message ?? JSON.stringify(err, null, 2));
+      }
     }
   } catch (err) {
+    if (Array.isArray(err)) {
+      return res.status(422).send(
+        err.map(validationError => {
+          if (validationError instanceof ValidationError) {
+            delete validationError["target"];
+            delete validationError["value"];
+            delete validationError["children"];
+          }
+          return validationError;
+        })
+      );
+    }
     return res.status(422).send(err?.message ?? JSON.stringify(err, null, 2));
   }
 });

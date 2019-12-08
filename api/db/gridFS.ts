@@ -1,3 +1,4 @@
+import { ReadStream } from "fs";
 import { GridFSBucket, MongoClient, ObjectId } from "mongodb";
 
 import { mongoUrl } from "./";
@@ -24,7 +25,7 @@ const bucket = new Promise<GridFSBucket>(async (resolve, reject) => {
   }
 });
 
-export const uploadFileGridFS = (
+export const uploadFileGridFSBuffer = (
   buffer: Buffer,
   filename: string,
   _id: ObjectId
@@ -65,6 +66,51 @@ export const uploadFileGridFS = (
               resolve({ _id, filename });
             }
           );
+        });
+      } catch (err) {
+        console.error(err);
+        reject(err);
+      }
+    }
+  );
+};
+
+export const uploadFileGridFSStream = (
+  stream: ReadStream,
+  filename: string,
+  _id: ObjectId
+) => {
+  return new Promise<{ _id: ObjectId; filename: string }>(
+    async (resolve, reject) => {
+      try {
+        (await bucket).delete(_id, async err => {
+          if (err) {
+            if (!err.message?.includes("FileNotFound")) {
+              console.error(err);
+            }
+          }
+
+          stream
+            .pipe((await bucket).openUploadStreamWithId(_id, filename))
+            .on("error", err => {
+              reject(err);
+            })
+            .on(
+              "finish",
+              ({
+                _id,
+                filename,
+              }: {
+                _id: ObjectId;
+                length: number;
+                chunkSize: number;
+                uploadDate: Date;
+                filename: string;
+                md5: string;
+              }) => {
+                resolve({ _id, filename });
+              }
+            );
         });
       } catch (err) {
         console.error(err);

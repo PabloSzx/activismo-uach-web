@@ -2,6 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchemaSync } from "type-graphql";
 
 import * as resolvers from "../resolvers";
+import { buildContext } from "./buildContext";
 
 export const apolloServer = new ApolloServer({
   schema: buildSchemaSync({
@@ -18,6 +19,7 @@ export const apolloServer = new ApolloServer({
       "request.credentials": "include",
     },
   },
+  context: ({ req, res }) => buildContext({ req, res }),
   introspection: true,
   debug: process.env.NODE_ENV !== "production",
 });

@@ -7,15 +7,15 @@ import cookieParser from "cookie-parser";
 import express from "express";
 
 import { apolloServer } from "./apollo/server";
-import { ChartsRouter } from "./routes/charts";
+import { ChartsPrefix, ChartsRouter } from "./routes/charts";
 
 const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "15mb" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: "15mb" }));
 
-app.use("/api", ChartsRouter);
+app.use("/api" + ChartsPrefix, ChartsRouter);
 
 apolloServer.applyMiddleware({
   app,

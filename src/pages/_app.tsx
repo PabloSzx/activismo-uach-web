@@ -5,8 +5,9 @@ import Router from "next/router";
 import NProgress from "nprogress";
 
 import { ApolloProvider } from "@apollo/react-hooks";
-import { theme, ThemeProvider } from "@chakra-ui/core";
+import { Box, theme, ThemeProvider } from "@chakra-ui/core";
 
+import Navigation from "../components/Navigation";
 import { withApollo } from "../utils/withApollo";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -24,7 +25,10 @@ class MyApp extends App<{ apollo: ApolloClient<any> }> {
         </Head>
 
         <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
+          <Navigation />
+          <Box pos="relative" top="50px">
+            <Component {...pageProps} />
+          </Box>
         </ThemeProvider>
       </ApolloProvider>
     );
