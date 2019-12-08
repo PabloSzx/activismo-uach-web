@@ -153,7 +153,7 @@ export default () => {
               variables: {
                 file,
                 data: {
-                  title: "zxc",
+                  title,
                   tags,
                 },
               },

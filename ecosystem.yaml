@@ -1,5 +1,5 @@
 apps:
-  - name: client
+  - name: client_activismo
     script: node_modules/next/dist/bin/next
     args: start -p 5000
     interpreter: node
@@ -14,8 +14,8 @@ apps:
     time: true
     env:
       NODE_ENV: production
-  - name: api
-    script: api/dist/api/index.js
+  - name: api_activismo
+    script: api/dist/index.js
     exec_mode: cluster
     instances: 1
     wait_ready: true
