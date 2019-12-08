@@ -1,13 +1,19 @@
 import gql, { DocumentNode } from "graphql-tag-ts";
 
 export const GET_CHARTS: DocumentNode<{
-  charts: { title: string; imageUrl: string; tags: string[] }[];
+  charts: {
+    title: string;
+    imageUrl: string;
+    tags: string[];
+    updatedAt: Date;
+  }[];
 }> = gql`
   query {
     charts {
       title
       imageUrl
       tags
+      updatedAt
     }
   }
 `;

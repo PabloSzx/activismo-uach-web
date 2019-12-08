@@ -26,7 +26,7 @@ class MyApp extends App<{ apollo: ApolloClient<any> }> {
 
         <ThemeProvider theme={theme}>
           <Navigation />
-          <Box pos="relative" top="50px">
+          <Box pos="relative" top="55px">
             <Component {...pageProps} />
           </Box>
         </ThemeProvider>

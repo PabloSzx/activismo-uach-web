@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+import esLocale from "date-fns/locale/es";
 import { NextPage } from "next";
 import React from "react";
 
@@ -34,7 +36,7 @@ const IndexPage: NextPage = () => {
             borderColor="gray.400"
             justifyContent="space-between"
             pt={0}
-            boxShadow="1px 1px"
+            boxShadow="2px 1px #A0AEC0"
             maxW="100%"
           >
             <Flex
@@ -82,6 +84,13 @@ const IndexPage: NextPage = () => {
               key={key}
               src={`/api${chart.imageUrl}`}
             />
+            <Flex p={3}>
+              <Text>
+                {format(new Date(chart.updatedAt), "PPPPpppp", {
+                  locale: esLocale,
+                })}
+              </Text>
+            </Flex>
           </Flex>
         );
       })}
