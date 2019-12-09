@@ -10,7 +10,7 @@ import { GET_CHARTS } from "../graphql/queries";
 
 const IndexPage: NextPage = () => {
   const { data, loading, error } = useQuery(GET_CHARTS, {
-    pollInterval: 500,
+    pollInterval: 60000,
   });
 
   console.log({ data });

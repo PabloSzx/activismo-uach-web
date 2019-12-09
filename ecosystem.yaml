@@ -2,10 +2,6 @@ apps:
   - name: client_activismo
     script: node_modules/next/dist/bin/next
     args: start -p 5000
-    interpreter: node
-    interpreter_args:
-      - -r
-      - dotenv/config
     exec_mode: cluster
     instances: 1
     out_file: logs/out_client.log
