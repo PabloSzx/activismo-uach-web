@@ -38,7 +38,6 @@ export class ChartResolver {
     if (req.headers.authorization !== UPLOAD_CHART_CREDENTIALS) {
       throw new Error("Not Authorized!");
     }
-    console.log(filename);
     assert(
       filename,
       new AssertionError({

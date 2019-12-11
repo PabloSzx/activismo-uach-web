@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { FC, useEffect, useRef } from "react";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosTrendingUp } from "react-icons/io";
 
@@ -19,13 +20,16 @@ import {
 } from "@chakra-ui/core";
 
 const Navigation: FC = () => {
-  const { push, pathname, replace } = useRouter();
+  const { push, pathname } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure(false);
   const buttonRef = useRef<HTMLElement>(null);
   useEffect(() => {
     switch (pathname) {
       case "/charts":
-      case "/upload":
+      case "/charts/upload":
+      case "/survey/upload":
+      case "/survey/[id]":
+      case "/surveys":
         break;
       case "/":
       default:
@@ -82,6 +86,17 @@ const Navigation: FC = () => {
               >
                 <Box as={IoIosTrendingUp} size="40px" />
                 <Text pl={5}>Gráficos</Text>
+              </Flex>
+              <Flex
+                cursor="pointer"
+                onClick={() => {
+                  push("/surveys");
+                  onClose();
+                }}
+                alignItems="center"
+              >
+                <Box as={AiOutlineQuestionCircle} size="40px" />
+                <Text pl={5}>Encuestas</Text>
               </Flex>
             </Stack>
           </DrawerBody>

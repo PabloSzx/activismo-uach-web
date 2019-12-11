@@ -15,7 +15,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 
-import { GET_TAGS, UPLOAD_CHART } from "../graphql/queries";
+import { GET_TAGS, UPLOAD_CHART } from "../../graphql/queries";
 
 export default () => {
   const { data: allTags } = useQuery(GET_TAGS);
@@ -49,8 +49,6 @@ export default () => {
     }
   }, [allTags, setTagOptions]);
 
-  console.log({ tags });
-  console.log({ error, loading, data });
   return (
     <Stack spacing="20px">
       {error && (
@@ -139,7 +137,6 @@ export default () => {
             target: { validity, files },
           }: ChangeEvent<HTMLInputElement>) => {
             if (files && validity.valid) {
-              console.log({ files });
               setFile(files[0]);
             }
           }}

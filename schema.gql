@@ -3,6 +3,17 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Answer {
+  _id: ObjectId!
+  question: Question
+  answer: String!
+}
+
+input AnswerInput {
+  question: ObjectId!
+  answer: String!
+}
+
 type Chart {
   title: String!
   imageUrl: String!
@@ -21,14 +32,70 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type Form {
+  _id: ObjectId!
+  name: String!
+  questions: [Question!]!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type FormResult {
+  _id: ObjectId!
+  form: Form
+  scope: String
+  email: String
+  answers: [Answer!]!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input FormResultInput {
+  form: ObjectId!
+  scope: String
+  email: String
+  answers: [AnswerInput!]!
+}
+
 type Mutation {
   uploadChart(oldTitle: String, data: ChartUpload!, file: Upload!): Chart!
+  upsertForm(data: UpsertForm!): Form!
+  answerForm(data: FormResultInput!): FormResult!
+  upsertQuestion(data: UpsertQuestion!): Question!
 }
+
+"""Mongo object id scalar type"""
+scalar ObjectId
 
 type Query {
   charts: [Chart!]!
   tags: [String!]!
+  forms: [Form!]!
+  form(name: String, id: ObjectId): Form
+  formResults(form_id: ObjectId): [FormResult!]!
+  questions: [Question!]!
+  question(text: String, _id: ObjectId): Question
+}
+
+type Question {
+  _id: ObjectId!
+  text: String!
+  alternatives: [String!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input UpsertForm {
+  _id: ObjectId
+  name: String!
+  questions: [ObjectId!]!
+}
+
+input UpsertQuestion {
+  _id: ObjectId
+  text: String!
+  alternatives: [String!]
+}

@@ -2,18 +2,15 @@ import { format } from "date-fns";
 import esLocale from "date-fns/locale/es";
 import { NextPage } from "next";
 import React from "react";
+import LazyLoad from "react-lazyload";
 
 import { useQuery } from "@apollo/react-hooks";
 import { Badge, Flex, Image, Stack, Tag, Text } from "@chakra-ui/core";
 
-import { GET_CHARTS } from "../graphql/queries";
+import { GET_CHARTS } from "../../graphql/queries";
 
 const IndexPage: NextPage = () => {
-  const { data, loading, error } = useQuery(GET_CHARTS, {
-    pollInterval: 60000,
-  });
-
-  console.log({ data });
+  const { data, loading, error } = useQuery(GET_CHARTS, {});
 
   if (loading) {
     return <div>Loading...</div>;
@@ -78,12 +75,14 @@ const IndexPage: NextPage = () => {
                 })}
               </Stack>
             </Flex>
-            <Image
-              p={6}
-              objectFit="contain"
-              key={key}
-              src={`/api${chart.imageUrl}`}
-            />
+            <LazyLoad height={300} once>
+              <Image
+                p={6}
+                objectFit="contain"
+                key={key}
+                src={`/api${chart.imageUrl}`}
+              />
+            </LazyLoad>
             <Flex p={3}>
               <Text>
                 {format(new Date(chart.updatedAt), "PPPPpppp", {

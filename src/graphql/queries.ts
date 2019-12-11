@@ -43,3 +43,39 @@ export const GET_TAGS: DocumentNode<{
     tags
   }
 `;
+
+export const GET_ALL_FORMS: DocumentNode<{
+  forms: { _id: string; name: string }[];
+}> = gql`
+  query {
+    forms {
+      _id
+      name
+    }
+  }
+`;
+
+export const GET_FORM: DocumentNode<
+  {
+    form?: {
+      _id: string;
+      name: string;
+      questions: { _id: string; text: string; alternatives?: string[] }[];
+    };
+  },
+  {
+    id: string;
+  }
+> = gql`
+  query($id: ObjectId!) {
+    form(id: $id) {
+      _id
+      name
+      questions {
+        _id
+        text
+        alternatives
+      }
+    }
+  }
+`;
