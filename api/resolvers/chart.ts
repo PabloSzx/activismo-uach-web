@@ -4,7 +4,6 @@ import { FileUpload, GraphQLUpload } from "graphql-upload";
 import mime from "mime";
 import requireEnv from "require-env-variable";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import validator from "validator";
 
 import { uploadFileGridFSStream } from "../db/gridFS";
 import { Chart, ChartModel, ChartUpload } from "../entities/chart";

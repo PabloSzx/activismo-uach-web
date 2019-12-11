@@ -79,3 +79,97 @@ export const GET_FORM: DocumentNode<
     }
   }
 `;
+
+export const UPSERT_FORM: DocumentNode<
+  {
+    upsertForm: {
+      _id: string;
+    };
+  },
+  {
+    data: {
+      _id?: string;
+      name: string;
+      questions: string[];
+    };
+  }
+> = gql`
+  mutation($data: UpsertForm!) {
+    upsertForm(data: $data) {
+      _id
+    }
+  }
+`;
+
+export const UPSERT_QUESTION: DocumentNode<
+  {
+    upsertQuestion: {
+      _id: string;
+    };
+  },
+  {
+    data: {
+      _id?: string;
+      text: string;
+      alternatives?: string[] | null;
+    };
+  }
+> = gql`
+  mutation($data: UpsertQuestion!) {
+    upsertQuestion(data: $data) {
+      _id
+    }
+  }
+`;
+
+export const GET_QUESTIONS: DocumentNode<{
+  questions: {
+    _id: string;
+    text: string;
+    alternatives?: string[];
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
+}> = gql`
+  query {
+    questions {
+      _id
+      text
+      alternatives
+      updatedAt
+      createdAt
+    }
+  }
+`;
+
+export const GET_FORMS: DocumentNode<{
+  forms: {
+    _id: string;
+    name: string;
+    questions: {
+      _id: string;
+      text: string;
+      alternatives?: string[];
+      createdAt: Date;
+      updatedAt: Date;
+    }[];
+    updatedAt: Date;
+    createdAt: Date;
+  }[];
+}> = gql`
+  query {
+    forms {
+      _id
+      name
+      questions {
+        _id
+        text
+        alternatives
+        updatedAt
+        createdAt
+      }
+      updatedAt
+      createdAt
+    }
+  }
+`;
