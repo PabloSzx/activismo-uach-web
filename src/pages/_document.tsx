@@ -7,6 +7,11 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css"
+          />
+
+          <link
+            rel="stylesheet"
             href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
           />
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />

@@ -1,6 +1,7 @@
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Router from "next/router";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSetState } from "react-use";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -13,12 +14,15 @@ import {
   RadioGroup,
   Stack,
   Tag,
-  Text,
 } from "@chakra-ui/core";
 
 import { GET_FORM } from "../../graphql/queries";
 
+const MapNoSSR = dynamic(() => import("../../components/Map"), { ssr: false });
 const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+
   const { data, loading } = useQuery(GET_FORM, {
     variables: {
       id,
@@ -91,6 +95,9 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
             </Box>
           );
         })}
+        <Stack align="center" justify="center">
+          <MapNoSSR setLatitude={setLatitude} setLongitude={setLongitude} />
+        </Stack>
       </Stack>
     );
   }
