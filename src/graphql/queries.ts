@@ -173,3 +173,28 @@ export const GET_FORMS: DocumentNode<{
     }
   }
 `;
+
+export const ANSWER_FORM: DocumentNode<
+  {
+    answerForm: {
+      _id: string;
+    };
+  },
+  {
+    data: {
+      form: string;
+      latitude: number;
+      longitude: number;
+      answers: {
+        question: string;
+        answer: string;
+      }[];
+    };
+  }
+> = gql`
+  mutation($data: FormResultInput!) {
+    answerForm(data: $data) {
+      _id
+    }
+  }
+`;

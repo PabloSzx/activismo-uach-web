@@ -36,12 +36,12 @@ export class FormResultResolver {
 
   @Mutation(() => FormResult)
   async answerForm(
-    @Arg("data") { form, scope, email, answers }: FormResultInput
+    @Arg("data") { form, answers, latitude, longitude }: FormResultInput
   ) {
     return await FormResultModel.create({
       form,
-      scope,
-      email,
+      latitude,
+      longitude,
       answers,
     });
   }

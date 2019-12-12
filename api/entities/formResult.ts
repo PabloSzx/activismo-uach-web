@@ -37,17 +37,17 @@ export class FormResult extends TimeStamps {
   @Property({ ref: "Form" })
   form?: Ref<Form>;
 
-  @Field({ nullable: true })
-  @Property()
-  scope?: string;
-
-  @Field({ nullable: true })
-  @Property()
-  email?: string;
-
   @Field(() => [Answer])
   @PropertyArray({ items: Answer, default: [] })
   answers: Answer[];
+
+  @Field()
+  @Property({ default: -1 })
+  latitude: number;
+
+  @Field()
+  @Property({ default: -1 })
+  longitude: number;
 
   @Field()
   readonly updatedAt: Date;
@@ -72,11 +72,11 @@ export class FormResultInput implements DeepPartial<FormResult> {
   @Field(() => ObjectIdScalar)
   form: ObjectId;
 
-  @Field({ nullable: true })
-  scope?: string;
+  @Field()
+  latitude: number;
 
-  @Field({ nullable: true })
-  email?: string;
+  @Field()
+  longitude: number;
 
   @Field(() => [AnswerInput])
   answers: AnswerInput[];
