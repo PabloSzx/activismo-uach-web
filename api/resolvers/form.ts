@@ -24,8 +24,13 @@ const { UPDATE_FORM_CREDENTIALS } = requireEnv("UPDATE_FORM_CREDENTIALS");
 @Resolver(() => Form)
 export class FormResolver {
   @Query(() => [Form])
-  async forms() {
-    return await FormModel.find({});
+  async forms(
+    @Arg("show_inactive", { defaultValue: false }) show_inactive: boolean
+  ) {
+    if (show_inactive) {
+      return await FormModel.find({});
+    }
+    return await FormModel.find({ active: true });
   }
 
   @Query(() => Form, { nullable: true })
@@ -34,13 +39,35 @@ export class FormResolver {
     @Arg("name", { nullable: true }) name?: string
   ) {
     if (id) {
-      return await FormModel.findById(id);
+      const formToFind = await FormModel.findById(id);
+      if (!!formToFind?.active) {
+        return formToFind;
+      }
     } else if (name) {
       return await FormModel.findOne({
         name,
+        active: true,
       });
     }
     return null;
+  }
+
+  @Mutation(() => Form)
+  async toggleActiveForm(
+    @Ctx() { req }: IContext,
+    @Arg("form_id", () => ObjectIdScalar) form_id: string
+  ) {
+    assert(
+      req.headers.authorization === UPDATE_FORM_CREDENTIALS,
+      new AssertionError({
+        message: "Not authorized!",
+      })
+    );
+    const formToToggle = await FormModel.findById(form_id);
+    assertIsDefined(formToToggle, `Form specified not found!`);
+    formToToggle.active = !formToToggle.active;
+    await formToToggle.save();
+    return formToToggle;
   }
 
   @Mutation(() => Form)

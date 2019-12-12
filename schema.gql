@@ -36,6 +36,7 @@ type Form {
   _id: ObjectId!
   name: String!
   questions: [Question!]!
+  active: Boolean!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -59,6 +60,7 @@ input FormResultInput {
 
 type Mutation {
   uploadChart(oldTitle: String, data: ChartUpload!, file: Upload!): Chart!
+  toggleActiveForm(form_id: ObjectId!): Form!
   upsertForm(data: UpsertForm!): Form!
   answerForm(data: FormResultInput!): FormResult!
   upsertQuestion(data: UpsertQuestion!): Question!
@@ -70,7 +72,7 @@ scalar ObjectId
 type Query {
   charts: [Chart!]!
   tags: [String!]!
-  forms: [Form!]!
+  forms(show_inactive: Boolean = false): [Form!]!
   form(name: String, id: ObjectId): Form
   formResults(form_id: ObjectId): [FormResult!]!
   questions: [Question!]!

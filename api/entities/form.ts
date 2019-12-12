@@ -31,6 +31,10 @@ export class Form extends TimeStamps {
   questions: Ref<Question>[];
 
   @Field()
+  @Property({ default: true })
+  active: boolean;
+
+  @Field()
   readonly updatedAt: Date;
 
   @Field()
