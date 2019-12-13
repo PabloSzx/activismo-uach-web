@@ -9,46 +9,46 @@ body {
 }
 
 /* Topbar */
-.css-28cn0z {
+.top_bar {
   background-color: #572363 !important;
 }
 
 /* Color Icon Burger */
-.css-1hmjxsf {
-  color: #FFF0FA !important;
+.icon_burger {
+  color: #fff0fa !important;
 }
 
 /* Sidebar Header */
-.css-w7idnj {
+.sidebar_header {
   background-color: #572363;
-  color: #FFF0FA;
+  color: #fff0fa;
 }
 /* Sidebar Body */
-.css-5m10fw {
+.sidebar_body {
   background-color: rgb(250, 250, 250);
-  color: #401A4A;
+  color: #401a4a;
 }
 /* Sidebar Footer */
-.css-81g6me {
+.sidebar_footer {
   background-color: #572363;
-  color: #FFF0FA;
+  color: #fff0fa;
 }
 
 /* Survey Button Box */
-.css-j7qwjs {
+.survey_stack_box {
   margin: 10px;
 }
 
 /* Survey Button */
-.css-6ypvrh {
-  background-color: #993EB0 !important;
-  color: #FFF0FA !important;
+.survey_button {
+  background-color: #993eb0 !important;
+  color: #fff0fa !important;
   padding: 10px;
   border-radius: 10px !important;
 }
 
 /* Survey Title */
-.css-1js120y {
+.survey_title {
   background-color: #0000 !important;
   color: #301438 !important;
   font-weight: bold;
@@ -59,29 +59,29 @@ body {
 }
 
 /* Survey Box */
-.css-voi5gp {
+.survey_box {
   border-style: none !important;
   border-width: 0px;
   border-radius: 10px;
-  background-color: #E4B4F0;
+  background-color: #e4b4f0;
   color: #301438;
 }
 
 /* Survey Box Text */
-.css-176s5fq {
+.survey_box_text {
   padding-bottom: 8px !important;
 }
 
 /* Survey Box Text Field */
-.css-1bqs6u7 {
+.survey_box_text_field {
   border-style: none !important;
   border-radius: 10px;
 }
 
 /* Send Answer Button */
-.css-c4fa1y {
-  background-color: #993EB0 !important;
-  color: #FFF0FA !important;
+.survey_answer_button {
+  background-color: #993eb0 !important;
+  color: #fff0fa !important;
   padding: 10px;
   border-radius: 10px !important;
   height: 39px !important;

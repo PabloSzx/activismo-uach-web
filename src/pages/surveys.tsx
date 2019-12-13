@@ -10,10 +10,11 @@ const SurveysPage: NextPage = () => {
   const { data } = useQuery(GET_ALL_FORMS);
 
   return (
-    <Stack>
+    <Stack className="survey_stack_box">
       {(data?.forms ?? []).map(form => {
         return (
           <Tag
+            className="survey_button"
             key={form._id}
             cursor="pointer"
             justifyContent="center"

@@ -207,6 +207,7 @@ export default () => {
                         <Text>Name</Text>
                       </InputLeftAddon>
                       <Input
+                        borderColor="black"
                         name="name"
                         onChange={({
                           target: { value },
@@ -225,6 +226,7 @@ export default () => {
                             <Text>{`Question ${key + 1} ${_id}`}</Text>
                           </InputLeftAddon>
                           <Input
+                            borderColor="black"
                             name={_id}
                             onChange={({
                               target: { value },
@@ -302,12 +304,12 @@ export default () => {
         };
         return (
           <>
-            |
             <InputGroup>
               <InputLeftAddon rounded="md" size="md">
                 <Text>Name</Text>
               </InputLeftAddon>
               <Input
+                borderColor="black"
                 value={name}
                 onChange={({
                   target: { value: name },
@@ -325,6 +327,7 @@ export default () => {
                     <Text>{`Question ${key + 1}`}</Text>
                   </InputLeftAddon>
                   <Input
+                    borderColor="black"
                     value={value}
                     onChange={({
                       target: { value },
