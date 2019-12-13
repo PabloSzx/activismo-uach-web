@@ -74,13 +74,23 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
   if (dataGetForm?.form?._id) {
     return (
       <Stack>
-        <Tag justifyContent="center">{dataGetForm.form.name}</Tag>
+        <Tag className="survey_title" justifyContent="center">
+          {dataGetForm.form.name}
+        </Tag>
         {dataGetForm.form.questions.map(
           ({ _id: questionId, text, alternatives }) => {
             return (
-              <Box border="1px" p={2} m={2} key={questionId}>
+              <Box
+                className="survey_box"
+                border="1px"
+                p={2}
+                m={2}
+                key={questionId}
+              >
                 <FormControl key={questionId}>
-                  <FormLabel htmlFor={questionId}>{text}</FormLabel>
+                  <FormLabel className="survey_box_text" htmlFor={questionId}>
+                    {text}
+                  </FormLabel>
                   {alternatives && alternatives.length > 0 ? (
                     <RadioGroup
                       value={formState[questionId] ?? ""}
@@ -100,6 +110,7 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
                     </RadioGroup>
                   ) : (
                     <Input
+                      className="survey_box_text_field"
                       type="text"
                       id={questionId}
                       aria-describedby={text}
@@ -122,6 +133,7 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
           <MapNoSSR setLatitude={setLatitude} setLongitude={setLongitude} />
         </Stack>
         <Button
+          className="survey_answer_button"
           isLoading={loadingAnswerForm}
           onClick={() => {
             answerForm({

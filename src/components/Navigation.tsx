@@ -49,6 +49,7 @@ const Navigation: FC = () => {
       pt={2}
       pb={2}
       zIndex={2}
+      className="top_bar"
     >
       <Box ref={buttonRef} pl={3}>
         <Box
@@ -57,6 +58,7 @@ const Navigation: FC = () => {
           color="gray.500"
           onClick={onOpen}
           cursor="pointer"
+          className="icon_burger"
         />
       </Box>
       <Drawer
@@ -67,10 +69,10 @@ const Navigation: FC = () => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader>
+          <DrawerHeader className="sidebar_header">
             <Text>Activismo Informática UACh</Text>
           </DrawerHeader>
-          <DrawerBody>
+          <DrawerBody className="sidebar_body">
             <Stack
               spacing="5px"
               fontFamily="sans-serif"
@@ -100,7 +102,7 @@ const Navigation: FC = () => {
               </Flex>
             </Stack>
           </DrawerBody>
-          <DrawerFooter>
+          <DrawerFooter className="sidebar_footer">
             <Icon
               name={isOpen ? "chevron-left" : "chevron-right"}
               size="35px"
