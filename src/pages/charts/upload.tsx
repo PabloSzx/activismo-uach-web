@@ -159,7 +159,7 @@ export default () => {
           }
         }}
       >
-        {oldTitle ? "Update Chart" : "Upload Chart"}
+        Upsert Chart
       </Button>
       {data && (
         <Stack>

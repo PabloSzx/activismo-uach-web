@@ -63,26 +63,28 @@ export class ChartResolver {
     }
     const imageUrl = `${ChartsPrefix}/${encodeurl(filename)}`;
     try {
-      const uploadedChart = ChartModel.findOneAndUpdate(
-        {
-          title: oldTitle || title,
-        },
-        {
+      let uploadedChart = await ChartModel.findOne({
+        title: oldTitle || title,
+      });
+      if (uploadedChart === null) {
+        uploadedChart = await ChartModel.create({
           title,
           tags,
           imageUrl,
-        },
-        {
-          upsert: true,
-          new: true,
-        }
-      );
+        });
+      } else {
+        uploadedChart.title = title;
+        uploadedChart.tags = tags;
+        uploadedChart.imageUrl = imageUrl;
+        await uploadedChart.save();
+      }
+
       await uploadFileGridFSStream(
         createReadStream(),
         imageUrl,
-        (await uploadedChart)._id
+        uploadedChart._id
       );
-      return await uploadedChart;
+      return uploadedChart;
     } catch (err) {
       console.error(err);
       throw err;
