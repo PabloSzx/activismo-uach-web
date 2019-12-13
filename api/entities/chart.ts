@@ -13,7 +13,7 @@ import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
 
 @ObjectType()
 export class Chart extends TimeStamps {
-  @Property({ required: true })
+  @Property({ required: true, unique: true, index: true })
   @Field()
   title: string;
 

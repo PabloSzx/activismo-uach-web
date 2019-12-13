@@ -18,7 +18,7 @@ export class Form extends TimeStamps {
   readonly _id: ObjectId;
 
   @Field()
-  @Property({ required: true })
+  @Property({ required: true, unique: true, index: true })
   name: string;
 
   @Field(() => [Question])

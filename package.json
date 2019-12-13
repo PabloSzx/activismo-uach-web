@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "run-p -l build-*",
     "build-api": "tsc -P api",
     "build-client": "next build",
-    "build": "run-p -l build-*",
     "clean": "rm -rf logs/*",
     "dev": "cross-env NODE_ENV=development run-p -l watch-*",
     "postinstall": "run-p -l build-*",
@@ -122,5 +122,8 @@
     "typescript": "3.7.3",
     "utility-types": "^3.10.0",
     "wait-for-expect": "^3.0.1"
+  },
+  "resolutions": {
+    "fs-capacitor": "5.0.0"
   }
 }
