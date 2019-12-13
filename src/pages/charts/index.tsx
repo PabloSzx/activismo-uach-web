@@ -10,7 +10,9 @@ import { Badge, Flex, Image, Stack, Tag, Text } from "@chakra-ui/core";
 import { GET_CHARTS } from "../../graphql/queries";
 
 const IndexPage: NextPage = () => {
-  const { data, loading, error } = useQuery(GET_CHARTS, {});
+  const { data, loading, error } = useQuery(GET_CHARTS, {
+    pollInterval: 10000,
+  });
 
   if (loading) {
     return <div>Loading...</div>;
