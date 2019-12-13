@@ -48,7 +48,7 @@ const Navigation: FC = () => {
       borderBottomColor="gray.300"
       pt={2}
       pb={2}
-      zIndex={2}
+      zIndex={5000}
       className="top_bar"
     >
       <Box ref={buttonRef} pl={3}>

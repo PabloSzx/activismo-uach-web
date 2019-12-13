@@ -82,7 +82,7 @@ const MapComponent: FC<{
         }}
       />
 
-      <Box size="sm">
+      <Box size="sm" maxWidth="70%">
         <Map
           animate
           center={position}
@@ -97,6 +97,7 @@ const MapComponent: FC<{
               longitude: ev.latlng.lng,
             });
           }}
+          style={{ borderRadius: "20px" }}
           useFlyTo
           onZoom={() => {
             if (!userInteracted) {

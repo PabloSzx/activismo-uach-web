@@ -21,6 +21,7 @@ const SurveysPage: NextPage = () => {
             onClick={() => {
               Router.push("/survey/[id]", `/survey/${form._id}`);
             }}
+            textAlign="center"
           >
             {form.name}
           </Tag>

@@ -137,7 +137,9 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
           }
         )}
         <Stack align="center" justify="center" mt={4}>
-          <Heading>Marca el sector aproximado donde vives</Heading>
+          <Heading textAlign="center">
+            Marca el sector aproximado donde vives
+          </Heading>
           <MapNoSSR setLatitude={setLatitude} setLongitude={setLongitude} />
         </Stack>
         <Button
