@@ -1,8 +1,88 @@
 body {
+  background-color: rgb(250, 250, 250);
   overflow-y: scroll !important;
 }
 
 .leaflet-container {
   height: 100%;
   width: 100%;
+}
+
+/* Topbar */
+.css-28cn0z {
+  background-color: #572363 !important;
+}
+
+/* Color Icon Burger */
+.css-1hmjxsf {
+  color: #FFF0FA !important;
+}
+
+/* Sidebar Header */
+.css-w7idnj {
+  background-color: #572363;
+  color: #FFF0FA;
+}
+/* Sidebar Body */
+.css-5m10fw {
+  background-color: rgb(250, 250, 250);
+  color: #401A4A;
+}
+/* Sidebar Footer */
+.css-81g6me {
+  background-color: #572363;
+  color: #FFF0FA;
+}
+
+/* Survey Button Box */
+.css-j7qwjs {
+  margin: 10px;
+}
+
+/* Survey Button */
+.css-6ypvrh {
+  background-color: #993EB0 !important;
+  color: #FFF0FA !important;
+  padding: 10px;
+  border-radius: 10px !important;
+}
+
+/* Survey Title */
+.css-1js120y {
+  background-color: #0000 !important;
+  color: #301438 !important;
+  font-weight: bold;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-radius: 0px !important;
+  padding: 10px;
+}
+
+/* Survey Box */
+.css-voi5gp {
+  border-style: none !important;
+  border-width: 0px;
+  border-radius: 10px;
+  background-color: #E4B4F0;
+  color: #301438;
+}
+
+/* Survey Box Text */
+.css-176s5fq {
+  padding-bottom: 8px !important;
+}
+
+/* Survey Box Text Field */
+.css-1bqs6u7 {
+  border-style: none !important;
+  border-radius: 10px;
+}
+
+/* Send Answer Button */
+.css-c4fa1y {
+  background-color: #993EB0 !important;
+  color: #FFF0FA !important;
+  padding: 10px;
+  border-radius: 10px !important;
+  height: 39px !important;
 }
