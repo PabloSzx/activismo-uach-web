@@ -84,7 +84,8 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
         >
           {dataGetForm.form.name}
         </Heading>
-        {dataGetForm.form.questions.map(
+        {map(
+          dataGetForm.form.questions,
           ({ _id: questionId, text, alternatives }) => {
             return (
               <Box
@@ -107,7 +108,7 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
                         });
                       }}
                     >
-                      {alternatives.map((alternative, key) => {
+                      {map(alternatives, (alternative, key) => {
                         return (
                           <Radio border="gray" key={key} value={alternative}>
                             {alternative}

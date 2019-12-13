@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import esLocale from "date-fns/locale/es";
+import { map } from "lodash";
 import { NextPage } from "next";
 import React from "react";
 import LazyLoad from "react-lazyload";
@@ -24,7 +25,7 @@ const IndexPage: NextPage = () => {
 
   return (
     <Stack alignItems="center">
-      {data.charts.map((chart, key) => {
+      {map(data.charts, (chart, key) => {
         return (
           <Flex
             direction="column"
@@ -59,7 +60,7 @@ const IndexPage: NextPage = () => {
                 justifyContent="space-between"
                 key="stack"
               >
-                {chart.tags.map((tag, key) => {
+                {map(chart.tags, (tag, key) => {
                   return (
                     <Badge
                       key={key}

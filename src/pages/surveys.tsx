@@ -1,3 +1,4 @@
+import { map } from "lodash";
 import { NextPage } from "next";
 import Router from "next/router";
 
@@ -11,19 +12,19 @@ const SurveysPage: NextPage = () => {
 
   return (
     <Stack className="survey_stack_box">
-      {(data?.forms ?? []).map(form => {
+      {map(data?.forms ?? [], ({ _id, name }) => {
         return (
           <Tag
             className="survey_button"
-            key={form._id}
+            key={_id}
             cursor="pointer"
             justifyContent="center"
             onClick={() => {
-              Router.push("/survey/[id]", `/survey/${form._id}`);
+              Router.push("/survey/[id]", `/survey/${_id}`);
             }}
             textAlign="center"
           >
-            {form.name}
+            {name}
           </Tag>
         );
       })}
