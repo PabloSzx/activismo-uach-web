@@ -87,9 +87,11 @@ export class FormResolver {
         {
           name,
           questions,
+          active: true,
         },
         {
           new: true,
+          upsert: true,
         }
       );
 
@@ -97,19 +99,22 @@ export class FormResolver {
 
       return form;
     } else {
-      const form = await FormModel.findOneAndUpdate(
-        { name },
-        {
+      let formToUpsert = await FormModel.findOne({
+        name,
+      });
+      if (formToUpsert === null) {
+        formToUpsert = await FormModel.create({
           name,
           questions,
-        },
-        {
-          upsert: true,
-          new: true,
-        }
-      );
+          active: true,
+        });
+      } else {
+        formToUpsert.name = name;
+        formToUpsert.questions = questions;
+        await formToUpsert.save();
+      }
 
-      return form;
+      return formToUpsert;
     }
   }
 
