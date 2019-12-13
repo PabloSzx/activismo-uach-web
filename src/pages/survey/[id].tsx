@@ -11,6 +11,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   Radio,
   RadioGroup,
@@ -74,9 +75,15 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
   if (dataGetForm?.form?._id) {
     return (
       <Stack>
-        <Tag className="survey_title" justifyContent="center">
+        <Heading
+          className="survey_title"
+          justifyContent="center"
+          fontSize="2em"
+          p="5px"
+          textAlign="center"
+        >
           {dataGetForm.form.name}
-        </Tag>
+        </Heading>
         {dataGetForm.form.questions.map(
           ({ _id: questionId, text, alternatives }) => {
             return (
@@ -129,10 +136,12 @@ const SurveyPage: NextPage<{ id: string }> = ({ id }) => {
             );
           }
         )}
-        <Stack align="center" justify="center">
+        <Stack align="center" justify="center" mt={4}>
+          <Heading>Marca el sector aproximado donde vives</Heading>
           <MapNoSSR setLatitude={setLatitude} setLongitude={setLongitude} />
         </Stack>
         <Button
+          mt={6}
           className="survey_answer_button"
           isLoading={loadingAnswerForm}
           onClick={() => {
